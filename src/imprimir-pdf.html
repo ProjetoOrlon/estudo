@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self' blob:; connect-src 'self'">
+<title>preparando</title>
+<!-- Páginas do PDF desenhadas em alta resolução, uma por folha, para imprimir
+     (o processo principal abre esta página escondida e chama a impressão). -->
+<style>
+  @page { margin: 0; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  canvas { display: block; break-after: page; page-break-after: always; }
+  canvas:last-child { break-after: auto; page-break-after: auto; }
+</style>
+<script src="../node_modules/pdfjs-dist/build/pdf.min.js"></script>
+<script src="imprimir-pdf.js"></script>
+</head>
+<body></body>
+</html>

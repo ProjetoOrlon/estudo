@@ -1,0 +1,24 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>render</title>
+<!-- Página invisível usada por lib/ocr.js: desenha as páginas de um PDF
+     (escaneado, sem texto) como imagens, para a IA online “ler” cada uma. -->
+<script src="../node_modules/pdfjs-dist/build/pdf.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '../node_modules/pdfjs-dist/build/pdf.worker.min.js';
+  /* devolve até `max` páginas como JPEG (data URL), na largura `largura` */
+  window.renderizar = async function(url, max, largura){
+    var doc = await pdfjsLib.getDocument(url).promise, out = [];
+    for(var n = 1; n <= Math.min(doc.numPages, max); n++){
+      var pg = await doc.getPage(n), v0 = pg.getViewport({ scale:1 });
+      var vp = pg.getViewport({ scale: largura / v0.width });
+      var c = document.createElement('canvas');
+      c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+      var ctx = c.getContext('2d');
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+      await pg.render({ canvasContext:ctx, viewport:vp }).promise;
+      out.push(c.toDataURL('image/jpeg', 0.82));
+    }
+    return { total: doc.numPages, paginas: out };
+  };
+</script>

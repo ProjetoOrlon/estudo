@@ -1,0 +1,11 @@
+/* Fontes servidas localmente (funcionam sem internet). */
+@import url("../node_modules/@fontsource/archivo/latin-500.css");
+@import url("../node_modules/@fontsource/archivo/latin-600.css");
+@import url("../node_modules/@fontsource/archivo/latin-700.css");
+@import url("../node_modules/@fontsource/archivo/latin-800.css");
+@import url("../node_modules/@fontsource/source-sans-3/latin-400.css");
+@import url("../node_modules/@fontsource/source-sans-3/latin-400-italic.css");
+@import url("../node_modules/@fontsource/source-sans-3/latin-600.css");
+@import url("../node_modules/@fontsource/source-sans-3/latin-700.css");
+@import url("../node_modules/@fontsource/jetbrains-mono/latin-400.css");
+@import url("../node_modules/@fontsource/jetbrains-mono/latin-600.css");

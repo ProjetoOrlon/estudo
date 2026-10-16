@@ -1,0 +1,26 @@
+{
+ "name": "Plataforma de Estudo",
+ "short_name": "Estudo",
+ "description": "Mapas mentais, simulados, flashcards e resumos das suas matérias.",
+ "start_url": "src/index.html",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#F1F4F3",
+ "theme_color": "#0E6B60",
+ "lang": "pt-BR",
+ "icons": [
+  {
+   "src": "icones/icone-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "icones/icone-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}
