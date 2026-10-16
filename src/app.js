@@ -404,7 +404,7 @@
         '<h3 class="cfg-sec">🧠 Inteligência artificial</h3>' +
         '<p class="cfg-ajuda">O programa procura as IAs que consegue usar. Escolha qual vai <b>criar as matérias</b> e conversar como a <b>'+esc(Mascote.nome)+'</b>. Se não escolher, ele usa uma sozinho.</p>' +
         '<div class="ias-lista" id="c-ias">Procurando IAs…</div>' +
-        '<div class="cfg-links"><button class="ghost" id="c-ttestar" type="button">🔍 Procurar de novo</button><button class="ghost so-pc" id="c-tajuda" type="button">Como instalar uma IA grátis</button></div>' +
+        '<div class="cfg-links"><button class="ghost so-pc" id="c-ttestar" type="button">🔍 Procurar de novo</button><button class="ghost so-pc" id="c-tajuda" type="button">Como instalar uma IA grátis</button></div>' +
         '<details class="ia-online" id="c-online"'+(cfg.geracao.url ? ' open' : '')+'><summary>🌐 Conectar uma IA online (ChatGPT, Gemini, Groq…)</summary>' +
           '<p class="cfg-ajuda">⚠ O <b>aplicativo</b> do ChatGPT (ou do Gemini) instalado no computador não pode ser usado por outro programa. Para usar a IA deles aqui, crie uma <b>chave da API</b> no site do serviço e cole abaixo. O <b>Gemini</b> e o <b>Groq</b> têm plano grátis; no ChatGPT a API é paga à parte da assinatura.</p>' +
           '<label class="campo"><span>Serviço</span><select id="c-gserv"></select></label>' +
@@ -424,7 +424,7 @@
         '<div class="cfg-status" id="c-sstatus">Verificando…</div>' +
         '<div class="cfg-links" style="margin-top:8px"><button class="ghost" id="c-sagora" type="button">Sincronizar agora</button></div></div>' +
         '<h3 class="cfg-sec">ℹ Sobre</h3>' +
-        '<div class="cfg-status">Plataforma de Estudo · versão <b>' + esc(cfg.versao) + '</b> · edição ' + (cfg.edicao === 'familia' ? 'família' : 'pessoal') + (cfg.usuario && cfg.usuario.nome ? ' · olá, ' + esc(cfg.usuario.nome) + '!' : '') + '</div>' +
+        '<div class="cfg-status">Plataforma de Estudo · versão <b>' + esc(cfg.versao) + '</b> · ' + (cfg.edicao === 'tablet' ? 'celular e tablet' : 'edição ' + (cfg.edicao === 'familia' ? 'família' : 'pessoal')) + (cfg.usuario && cfg.usuario.nome ? ' · olá, ' + esc(cfg.usuario.nome) + '!' : '') + '</div>' +
         '<div class="cfg-status" id="c-atual" style="margin-top:8px">Atualizações: verificando…</div>' +
         '<div class="cfg-links" style="margin-top:8px"><button class="ghost" id="c-procurar" type="button">Procurar atualização</button><button class="ghost" id="c-boasvindas" type="button">Rever as boas-vindas</button><button class="ghost" id="c-falar" type="button">💬 Enviar sugestão ou erro</button></div>' +
         '<div id="c-msg"></div>' +
@@ -447,7 +447,9 @@
               return '<label class="ia-op'+(iaSel === id ? ' on' : '')+'"><input type="radio" name="c-ia" value="'+esc(id)+'"'+(iaSel === id ? ' checked' : '')+'><span><b>'+titulo+'</b><small>'+sub+'</small>'+(extra || '')+'</span></label>';
             };
             q('#c-ias').innerHTML = !iaLista.length
-              ? '<div class="cfg-status">⚠ Nenhuma IA encontrada agora. Abra uma IA do computador (LM Studio, Ollama, Jan…) e clique em <b>Procurar de novo</b>, ou conecte uma IA online logo abaixo.</div>'
+              ? (window.PLATAFORMA_WEB
+                ? '<div class="cfg-status">⚠ A IA ainda não está ativada neste aparelho. Cole o <b>código de ativação</b> logo abaixo.</div>'
+                : '<div class="cfg-status">⚠ Nenhuma IA encontrada agora. Abra uma IA do computador (LM Studio, Ollama, Jan…) e clique em <b>Procurar de novo</b>, ou conecte uma IA online logo abaixo.</div>')
               : linha('auto', '⚙ Automático', iaLista.length === 1 ? 'só encontrei uma IA: ela será usada' : 'o programa escolhe: a do computador para a tutora; para criar matérias, o Claude se houver chave') +
                 iaLista.map(function(o){
                   var mods = o.tipo === 'local' && o.modelos.length > 1 && iaSel === o.id

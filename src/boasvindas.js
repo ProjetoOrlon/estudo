@@ -56,7 +56,7 @@
               var alvo = caixa.querySelector('#bv-ia'); if(!alvo) return;
               alvo.innerHTML = s.disponivel
                 ? '✅ Encontrei: <b>' + esc(s.nome) + '</b> · ' + esc(s.modelo) + (s.gratis ? ' — grátis.' : '.') + ' Está tudo pronto! <button class="link-bt" data-bv="tenhocodigo" type="button">Tenho um código de ativação</button>'
-                : '⚠ Ainda não há uma IA ligada. <b>Se alguém te indicou o programa, peça a essa pessoa um código de ativação</b> e cole logo abaixo.<br><small>Avançado: dá para instalar uma IA grátis no computador. <button class="link-bt" data-bv="guia" type="button">Como instalar</button></small>';
+                : '⚠ Ainda não há uma IA ligada. <b>Se alguém te indicou o programa, peça a essa pessoa um código de ativação</b> e cole logo abaixo.<br><small class="so-pc">Avançado: dá para instalar uma IA grátis no computador. <button class="link-bt" data-bv="guia" type="button">Como instalar</button></small>';
               caixa.querySelector('#bv-codigo').hidden = s.disponivel;
             }).catch(function(){});
           }

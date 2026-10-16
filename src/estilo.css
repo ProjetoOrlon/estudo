@@ -832,7 +832,7 @@ body.tutor-on .mf-tutor{ display:inline-flex; }
 .tu-linha .tu-m{ max-width:none; }
 .tu-boas{ display:grid; justify-items:center; text-align:center; gap:2px; padding-top:8px; }
 .tu-boas b{ font:800 16px "Archivo", sans-serif; color:var(--ink); }
-.mascote-il{ display:block; margin:0 auto 6px; border-radius:18px; object-fit:cover; box-shadow:0 6px 18px rgba(0,0,0,.18); user-select:none; }
+.mascote-il{ display:block; margin:0 auto 6px; user-select:none; }
 .guia-topo{ display:flex; align-items:center; gap:12px; }
 .guia-topo h2{ margin:0; }
 .cfg-mascote{ display:flex; align-items:center; gap:8px; }
