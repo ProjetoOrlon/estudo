@@ -366,6 +366,9 @@
                   if(gerar) return api.gerar(id, { provedor:iaEscolhida }).then(function(){ if(atual) atual.geracao({ fase:'aulas', msg:'Começando…', feitas:0, total:arquivos.length }); })
                     .catch(function(e){ if(atual) atual.geracao({ fase:'erro', msg:e.message }); });
                   if(atual) atual.geracao({ fase:'fim', msg:'Arquivos adicionados. Gere o conteúdo na aba Gerenciar quando quiser.' });
+                }).catch(function(e){
+                  /* não deixa a faixa “Importando” parada: mostra o que deu errado */
+                  if(atual) atual.geracao({ fase:'erro', msg:'Não consegui adicionar os arquivos: ' + String(e.message || e).replace(/^Error invoking remote method '[^']+': (Error: )?/, '') });
                 });
               });
             }).catch(function(e){ U.aviso('Erro: ' + e.message, 5000); });

@@ -36,10 +36,21 @@
       if(r) r.onsuccess = function(){ res = r.result; };
       t.oncomplete = function(){ ok(res); };
       t.onerror = function(){ falha(t.error); };
+      /* sem isto, uma gravação recusada deixava a tela esperando para sempre */
+      t.onabort = function(){ falha(t.error || new Error('O aparelho não deixou guardar os dados.')); };
     }); });
   }
-  var ler = function(loja, k){ return tx(loja, 'readonly', function(s){ return s.get(k); }); };
-  var gravar = function(loja, k, v){ return tx(loja, 'readwrite', function(s){ return s.put(v, k); }); };
+  /* arquivos vão como bytes ({tipo, dados}): o Safari do iPhone (sobretudo na aba
+     privada) recusa guardar Blob/File no IndexedDB. Leitura aceita os dois jeitos. */
+  function paraBlob(v){ return v && v.dados instanceof ArrayBuffer ? new Blob([v.dados], { type:v.tipo || '' }) : v; }
+  var ler = function(loja, k){ return tx(loja, 'readonly', function(s){ return s.get(k); }).then(paraBlob); };
+  var gravar = function(loja, k, v){
+    var valor = v instanceof Blob ? v.arrayBuffer().then(function(b){ return { tipo:v.type, dados:b }; }) : Promise.resolve(v);
+    return valor.then(function(x){ return tx(loja, 'readwrite', function(s){ return s.put(x, k); }); }).catch(function(e){
+      if(e && (e.name === 'QuotaExceededError' || /quota/i.test(e.message || ''))) throw new Error('O aparelho está sem espaço para guardar este arquivo.');
+      throw e && e.message ? e : new Error('O aparelho não deixou guardar os dados' + (e && e.name ? ' (' + e.name + ')' : '') + '. Se estiver na aba privada do navegador, abra numa aba normal.');
+    });
+  };
   var apagar = function(loja, k){ return tx(loja, 'readwrite', function(s){ return s.delete(k); }); };
   var todos = function(loja){ return tx(loja, 'readonly', function(s){ return s.getAll(); }); };
   var chaves = function(loja){ return tx(loja, 'readonly', function(s){ return s.getAllKeys(); }); };
